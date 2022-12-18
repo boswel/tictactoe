@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+#game-container {
+  display: grid;
+  grid-template-columns: 1.2em 1.2em 1.2em;
+  grid-template-rows: 1.2em 1.2em 1.2em;
+  justify-content: center;
+  align-items: center;
+  font-size: 8rem;
+}
+
+.field {
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  border: 2px;
+  border-radius: 5%;
+  border-style: solid;
+  border-color: lightgrey;
+  box-shadow: 5px 5px 5px lightgrey;
+  text-align: center; 
+  cursor: pointer;
+}
