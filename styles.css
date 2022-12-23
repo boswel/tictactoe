@@ -13,6 +13,7 @@ h1 {
   grid-template-rows: 1.2em 1.2em 1.2em;
   justify-content: center;
   align-items: center;
+  justify-items: center;
   font-size: 8rem;
 }
 
