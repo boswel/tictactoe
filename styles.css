@@ -29,3 +29,37 @@ h1 {
   text-align: center; 
   cursor: pointer;
 }
+
+#won {
+  width: 30vw;
+  height: 15vh;
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  border: 2px;
+  padding: 2em;
+  border-radius: 10% / 20%;
+  border-style: solid;
+  border-color: grey;
+  box-shadow: 5px 5px 10px grey, -5px -5px 10px grey;
+  background-color: white;
+  text-align: center;
+  font-size: 2rem;
+}
+
+button {
+  width: 3em;
+  height: 1.5em;
+  background-color: gray;
+  border-radius: 10% / 20%;
+  color: white;
+  border-style: none;
+  font-size: 0.7em;
+  cursor: pointer; 
+}
+
+.off {
+  color: lightgray;
+  cursor: default;
+}
