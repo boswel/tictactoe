@@ -59,6 +59,22 @@ button {
   cursor: pointer; 
 }
 
+.field.X {
+  color: darkred;
+}
+
+.field.O {
+  color: darkblue;
+}
+
+button.X {
+  background-color: darkred;
+}
+
+button.O {
+  background-color: darkblue;
+}
+
 .off {
   color: lightgray;
   cursor: default;
