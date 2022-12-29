@@ -59,11 +59,13 @@ button {
   cursor: pointer; 
 }
 
-.field.X {
+.field.X, 
+#end-text.X {
   color: darkred;
 }
 
-.field.O {
+.field.O,
+#end-text.O {
   color: darkblue;
 }
 
