@@ -1,9 +1,10 @@
 let gameContainer = document.getElementById("game-container");
 let elements = document.querySelectorAll(".field");
-let won = document.getElementById("won");
-let wonText = document.getElementById("won-text");
-let wonButton = document.getElementById("won-button");
+let end = document.getElementById("end");
+let endText = document.getElementById("end-text");
+let endButton = document.getElementById("end-button");
 let symbol = "X";
+let movesPlayed = 0;
 
 let a = [
   [null, null, null],
@@ -13,15 +14,26 @@ let a = [
 
 elements.forEach(function(element) {
   element.addEventListener("click", () => {
-    if (isGameWon() || element.textContent) {return;}
+    movesPlayed += 1;
+console.log(movesPlayed)    
+    if (element.textContent) {return;} // do I still need the "isGameWon() || " condition? probably not because of end screen
     
     element.textContent = symbol;
     a[element.dataset.y][element.dataset.x] = symbol;
 
-    if (isGameWon()) {
-      styleFieldsAsOff();
-      popupEnd();
-    }
+    if (movesPlayed > 4) {
+      if (isGameWon()) {
+        styleFieldsAsOff();
+        endText.textContent = symbol + " won the game!";
+        end.hidden = false;
+      }
+      else {
+        if (movesPlayed === 9) {
+          endText.textContent = "It's a draw!";
+          end.hidden = false;
+        }
+      }
+    }    
 
     toggleSymbol();
   })  
@@ -42,12 +54,7 @@ function isGameWon() {
   return false;
 }
 
-function popupEnd() {
-  wonText.textContent = symbol + " won the game!";
-  won.hidden = false;
-}
-
-wonButton.addEventListener("click", () => {
+endButton.addEventListener("click", () => {
   location.reload();
 });
 
