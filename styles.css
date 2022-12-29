@@ -63,3 +63,15 @@ button {
   color: lightgray;
   cursor: default;
 }
+
+@media screen and (max-width: 480px) {
+  
+  #game-container {
+    font-size: 4rem;
+  }
+
+  #end {    
+    font-size: 1.5rem;
+    top: 65%;
+  }
+}

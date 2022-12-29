@@ -29,6 +29,7 @@ console.log(movesPlayed)
       }
       else {
         if (movesPlayed === 9) {
+          styleFieldsAsOff();
           endText.textContent = "It's a draw!";
           end.hidden = false;
         }
