@@ -1,7 +1,0 @@
-// coordinate system (x, y), origin bottom left
-
-
-
-// check before toggleSymbol()
-  whether there are 3 of the current symbol that have the same x or the same y coordinates
-  whether there are 3 of the current symbol on positions 0,0, 1,1 and 2,2 or on positions 0,2, 1,1 and 2,0

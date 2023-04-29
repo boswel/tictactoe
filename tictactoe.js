@@ -14,9 +14,9 @@ let a = [
 
 elements.forEach(function(element) {
   element.addEventListener("click", () => {
-    movesPlayed += 1;
-
     if (element.textContent) {return;} // do I still need the "isGameWon() || " condition? probably not because of end screen
+    
+    movesPlayed += 1;
     
     element.textContent = symbol;
     element.classList.add(symbol);
@@ -29,14 +29,13 @@ elements.forEach(function(element) {
         endText.classList.add(symbol);
         endButton.classList.add(symbol);
         end.hidden = false;
+        endButton.focus(); 
       }
-      else {
-        if (movesPlayed === 9) {
-          styleFieldsAsOff();
-          endText.textContent = "It's a draw!";
-          // endButton.focus(); doesn't do anything...
-          end.hidden = false;
-        }
+      else if (movesPlayed === 9) {
+        styleFieldsAsOff();
+        endText.textContent = "It's a draw!";
+        end.hidden = false;
+        endButton.focus(); 
       }
     }    
 
