@@ -42,7 +42,8 @@ elements.forEach(function(element) {
     }    
     
     gameState.symbol = toggleSymbol(gameState.symbol);
-    console.log(generateGameTree(gameState.board, gameState.symbol))
+    //console.log(generateNextGameStates(gameState))
+    console.log(generateGameTree(gameState))
   })  
 });
 
@@ -89,14 +90,21 @@ function evaluateGameState(a) {
 }
 
 
-function generateNextGameStates(a, symbol) { // a = board, symbol = player whose move it is
+function generateNextGameStates(gameState) { // a = board, symbol = player whose move it is
   let states = [];
   
   for (let y = 0; y <= 2; y++) {
     for (let x = 0; x <= 2; x++) {
-      if (a[y][x] === null) {
-        let nextState = JSON.parse(JSON.stringify(a)); // to make a deep copy of the nested array
-        nextState[y][x] = symbol;
+      if (gameState.board[y][x] === null) {
+        let nextState = {};
+        nextState.board = JSON.parse(JSON.stringify(gameState.board)); // to make a deep copy of the nested array
+        nextState.board[y][x] = gameState.symbol;
+        nextState.symbol = toggleSymbol(gameState.symbol);
+        nextState.movesPlayed = gameState.movesPlayed + 1;
+        //nextState.value = evaluateGameState(nextState.board);
+        //console.log(nextState.value)
+        //nextState.parentNode = gameState;
+      
         states.push(nextState);
       }
     }
@@ -104,17 +112,28 @@ function generateNextGameStates(a, symbol) { // a = board, symbol = player whose
   return states;
 }
 
-function generateGameTree(a, symbol) {
-  let states = generateNextGameStates(a, symbol);
-  symbol = toggleSymbol(symbol);
-  let moreStates = []; // TODO: this should not be an array but a collection of nodes
+function generateGameTree(gameState) {
+  gameState.value = evaluateGameState(gameState.board) * (10 - gameState.movesPlayed); // 10, so it doesn't result in 0 for wins on move 9
+  gameState.childNodes = []; 
+  
+  if (!gameState.value && gameState.movesPlayed < 9) {
 
-  for (let state of states) {
-    moreStates = generateGameTree(state, symbol);
+    let states = generateNextGameStates(gameState);  //array
+
+    for (let state of states) {
+      gameState.childNodes.push(generateGameTree(state));    
+    }
+
+    let values = gameState.childNodes.map(x => x.value)
+    let func = gameState.symbol === "X" ? Math.max : Math.min;
+    gameState.value =  func(...values);
   }
 
-  return moreStates;
+  return gameState;
 }
+
+
+
 
 
 
