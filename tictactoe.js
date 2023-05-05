@@ -43,20 +43,9 @@ elements.forEach(function(element) {
     
     gameState.symbol = toggleSymbol(gameState.symbol);
 // introduce condition 1/2 players
-    makeMove(gameState);
-
-    if (gameState.movesPlayed > 5) {
-      if (isGameWon(gameState.board)) {
-        styleFieldsAsOff();
-        endText.textContent = gameState.symbol + " won the game!";
-        endText.classList.add(gameState.symbol);
-        endButton.classList.add(gameState.symbol);
-        end.hidden = false;
-        endButton.focus(); 
-      }
-    }
-
-    gameState.symbol = toggleSymbol(gameState.symbol);
+    setTimeout(() => {
+      playComputerTurn(gameState)
+    }, 500);
   })  
 });
 
@@ -175,6 +164,22 @@ function makeMove(gameState) {
   
 }
 
+function playComputerTurn(gameState) {
+  makeMove(gameState);
+
+  if (gameState.movesPlayed > 5) {
+    if (isGameWon(gameState.board)) {
+      styleFieldsAsOff();
+      endText.textContent = gameState.symbol + " won the game!";
+      endText.classList.add(gameState.symbol);
+      endButton.classList.add(gameState.symbol);
+      end.hidden = false;
+      endButton.focus(); 
+    }
+  }
+
+  gameState.symbol = toggleSymbol(gameState.symbol);
+}
 
 
 
