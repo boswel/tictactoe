@@ -25,7 +25,7 @@ elements.forEach(function(element) {
     gameState.board[element.dataset.y][element.dataset.x] = gameState.symbol;
 
     if (gameState.movesPlayed > 4) {
-      if (isGameWon(gameState.board)) {
+      if (isGameWon(gameState.board)) { // replace with evaluateGameState
         styleFieldsAsOff();
         endText.textContent = gameState.symbol + " won the game!";
         endText.classList.add(gameState.symbol);
@@ -42,8 +42,21 @@ elements.forEach(function(element) {
     }    
     
     gameState.symbol = toggleSymbol(gameState.symbol);
-    //console.log(generateNextGameStates(gameState))
-    console.log(generateGameTree(gameState))
+// introduce condition 1/2 players
+    makeMove(gameState);
+
+    if (gameState.movesPlayed > 5) {
+      if (isGameWon(gameState.board)) {
+        styleFieldsAsOff();
+        endText.textContent = gameState.symbol + " won the game!";
+        endText.classList.add(gameState.symbol);
+        endButton.classList.add(gameState.symbol);
+        end.hidden = false;
+        endButton.focus(); 
+      }
+    }
+
+    gameState.symbol = toggleSymbol(gameState.symbol);
   })  
 });
 
@@ -133,6 +146,34 @@ function generateGameTree(gameState) {
 }
 
 
+function makeMove(gameState) {
+  let state = generateGameTree(gameState);  
+
+  let min = 0;
+
+  for (let child of state.childNodes) {
+    min = Math.min(min, child.value);
+  }
+  
+  let minStates = gameState.childNodes.filter(child => child.value === min);
+  let minChild = minStates[Math.floor(Math.random() * minStates.length)];
+
+  if (minChild) {
+    for (let y = 0; y < minChild.board.length; y++) {
+      for (let x = 0; x < minChild.board[y].length; x++) {
+        if (minChild.board[y][x] != gameState.board[y][x]) {
+          gameState.board[y][x] = gameState.symbol;
+          let element = document.querySelector('[data-y="' + y + '"][data-x="' + x + '"]');
+          element.textContent = gameState.symbol;
+          element.classList.add(gameState.symbol);
+        }
+      }
+    }
+  }
+  
+  gameState.movesPlayed += 1;
+  
+}
 
 
 
