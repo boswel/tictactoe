@@ -1,3 +1,4 @@
+let singlePlayerButton = document.getElementById("single-player");
 let gameContainer = document.getElementById("game-container");
 let elements = document.querySelectorAll(".field");
 let end = document.getElementById("end");
@@ -42,10 +43,12 @@ elements.forEach(function(element) {
     }    
     
     gameState.symbol = toggleSymbol(gameState.symbol);
-// introduce condition 1/2 players
-    setTimeout(() => {
-      playComputerTurn(gameState)
-    }, 500);
+
+    if (singlePlayerButton.checked) {
+      setTimeout(() => {
+        playComputerTurn(gameState)
+      }, 500);
+    }
   })  
 });
 
